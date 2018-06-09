@@ -24,23 +24,19 @@ namespace TeachMe.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Cliente user)
+        public ActionResult Register([Bind(Include="nome,data_nascimento,Password,Email,Telemovel,NIF,Cidade,Distrito,Freguesia,Porta,Coordenadas")] Cliente user)
         {
 
             if (ModelState.IsValid)
             {
-
                 using (TeachMeDb db = new TeachMeDb())
                 {
+                    user.Password= TeachMe.MyHelpers.HashPassword(user.Password);
                     db.Cliente.Add(user);
                     db.SaveChanges();
-                    ModelState.Clear();
-                    ViewBag.Message = user.Nome + " " + "registado com sucesso";
-                    user = null;
-
                 }
             }
-            return RedirectToAction("Index", "Login"); ;
+            return RedirectToAction("Index", "Login"); 
         }
     }
 }
