@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace TeachMe.Controllers
 {
-    public class HomeController : Controller
+    public class CatalogoController : Controller
     {
-        public ActionResult Index()
+        // GET: Catalogo
+        public ActionResult PageCatalogo()
         {
             return View();
         }

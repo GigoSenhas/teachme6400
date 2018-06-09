@@ -156,55 +156,29 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\ComoFuncionaController.cs" />
+    <Compile Include="Controllers\ContactoController.cs" />
+    <Compile Include="Controllers\EditarPerfilController.cs" />
+    <Compile Include="Controllers\EntrarController.cs" />
+    <Compile Include="Controllers\EquipaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegistarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Aula.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Cliente.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Disciplina.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Fatura.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Horario.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Material.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Opiniao.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Pedido_Aula.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Professor.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\teachmedb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>teachmedb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\teachmedb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>teachmedb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\teachmedb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>teachmedb.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Aula.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Disciplina.cs" />
+    <Compile Include="Models\Fatura.cs" />
+    <Compile Include="Models\Horario.cs" />
+    <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\TeachMeDb.cs" />
+    <Compile Include="Models\Opiniao.cs" />
+    <Compile Include="Models\Pedido_Aula.cs" />
+    <Compile Include="Models\Professor.cs" />
+    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,27 +190,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\teachmedb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>teachmedb.Context.cs</LastGenOutput>
-      <DependentUpon>teachmedb.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\teachmedb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>teachmedb.edmx</DependentUpon>
-      <LastGenOutput>teachmedb.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\teachmedb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>teachmedb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\teachmedb.edmx.diagram">
-      <DependentUpon>teachmedb.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -263,9 +220,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Catalogo\PageCatalogo.cshtml" />
+    <Content Include="Views\ComoFunciona\Index.cshtml" />
+    <Content Include="Views\Contacto\Index.cshtml" />
+    <Content Include="Views\EditarPerfil\EditarPerfil.cshtml" />
+    <Content Include="Views\Equipa\Index.cshtml" />
+    <Content Include="Views\Registar\Index.cshtml" />
+    <Content Include="Views\Registar\Register.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Entrar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

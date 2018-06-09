@@ -6,9 +6,10 @@ using System.Web.Mvc;
 
 namespace TeachMe.Controllers
 {
-    public class HomeController : Controller
+    public class EditarPerfilController : Controller
     {
-        public ActionResult Index()
+        // GET: EditarPerfil
+        public ActionResult EditarPerfil()
         {
             return View();
         }

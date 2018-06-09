@@ -6,11 +6,17 @@ using System.Web.Mvc;
 
 namespace TeachMe.Controllers
 {
-    public class HomeController : Controller
+    public class ContactoController : Controller
     {
+        // GET: Contacto
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult PageContacto()
+        {
+            return RedirectToAction("Index", "Contacto");
         }
     }
 }
