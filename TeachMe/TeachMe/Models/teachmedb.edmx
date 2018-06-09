@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="teachMeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Custo" Type="int" Nullable="false" />
+          <Property Name="Horario_ID" Type="int" Nullable="false" />
+          <Property Name="Professor_ID" Type="int" Nullable="false" />
+          <Property Name="Opiniao_ID" Type="int" Nullable="false" />
+          <Property Name="Disciplina_ID" Type="int" Nullable="false" />
+          <Property Name="Cliente_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Data_Nascimento" Type="date" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Numero_Telemovel" Type="int" Nullable="false" />
+          <Property Name="NIF" Type="int" Nullable="false" />
+          <Property Name="Cidade" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Distrito" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Freguesia" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Porta" Type="int" Nullable="false" />
+          <Property Name="Coordenadas_GPS" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'teachMe.dbo.Disciplina_has_Professor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Disciplina_has_Professor">
+          <Key>
+            <PropertyRef Name="Disciplina_ID" />
+            <PropertyRef Name="Professor_ID" />
+          </Key>
+          <Property Name="Disciplina_ID" Type="int" Nullable="false" />
+          <Property Name="Professor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fatura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente_ID" Type="int" Nullable="false" />
+          <Property Name="Aula_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dia_Hora" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Aula_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Opiniao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Avaliacao" Type="int" Nullable="false" />
+          <Property Name="Texto" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Professor_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedido_Aula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente_ID" Type="int" Nullable="false" />
+          <Property Name="Disciplina_ID" Type="int" Nullable="false" />
+          <Property Name="Nome_Educando" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Resultados" Type="int" Nullable="false" />
+          <Property Name="Observacao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Horario_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Data_Nascimento" Type="date" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Classificacao" Type="int" Nullable="false" />
+          <Property Name="Numero_Telemovel" Type="int" Nullable="false" />
+          <Property Name="Ativo" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'teachMe.dbo.Professor_has_Horario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Professor_has_Horario">
+          <Key>
+            <PropertyRef Name="Professor_ID" />
+            <PropertyRef Name="Horario_ID" />
+          </Key>
+          <Property Name="Professor_ID" Type="int" Nullable="false" />
+          <Property Name="Horario_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="Aula_fk0">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Horario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk1">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk2">
+          <End Role="Opiniao" Type="Self.Opiniao" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opiniao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Opiniao_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk3">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Disciplina_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk4">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Disciplina_has_Professor_fk0">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Disciplina_has_Professor" Type="Self.Disciplina_has_Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Disciplina_has_Professor">
+              <PropertyRef Name="Disciplina_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Disciplina_has_Professor_fk1">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Disciplina_has_Professor" Type="Self.Disciplina_has_Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Disciplina_has_Professor">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fatura_fk0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fatura_fk1">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="Aula_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Material_fk0">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Aula_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Opiniao_fk0">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Opiniao" Type="Self.Opiniao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Opiniao">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk1">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Disciplina_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk2">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="0..1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Horario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Professor_has_Horario_fk0">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Professor_has_Horario" Type="Self.Professor_has_Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Professor_has_Horario">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Professor_has_Horario_fk1">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="Professor_has_Horario" Type="Self.Professor_has_Horario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Professor_has_Horario">
+              <PropertyRef Name="Horario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="teachMeModelStoreContainer">
+          <EntitySet Name="Aula" EntityType="Self.Aula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fatura" EntityType="Self.Fatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Opiniao" EntityType="Self.Opiniao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido_Aula" EntityType="Self.Pedido_Aula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disciplina_has_Professor" EntityType="Self.Disciplina_has_Professor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Disciplina_has_Professor].[Disciplina_ID] AS [Disciplina_ID], 
+    [Disciplina_has_Professor].[Professor_ID] AS [Professor_ID]
+    FROM [dbo].[Disciplina_has_Professor] AS [Disciplina_has_Professor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Professor_has_Horario" EntityType="Self.Professor_has_Horario" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Professor_has_Horario].[Professor_ID] AS [Professor_ID], 
+    [Professor_has_Horario].[Horario_ID] AS [Horario_ID]
+    FROM [dbo].[Professor_has_Horario] AS [Professor_has_Horario]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Aula_fk0" Association="Self.Aula_fk0">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk1" Association="Self.Aula_fk1">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk2" Association="Self.Aula_fk2">
+            <End Role="Opiniao" EntitySet="Opiniao" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk3" Association="Self.Aula_fk3">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk4" Association="Self.Aula_fk4">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Disciplina_has_Professor_fk0" Association="Self.Disciplina_has_Professor_fk0">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Disciplina_has_Professor" EntitySet="Disciplina_has_Professor" />
+          </AssociationSet>
+          <AssociationSet Name="Disciplina_has_Professor_fk1" Association="Self.Disciplina_has_Professor_fk1">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Disciplina_has_Professor" EntitySet="Disciplina_has_Professor" />
+          </AssociationSet>
+          <AssociationSet Name="Fatura_fk0" Association="Self.Fatura_fk0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="Fatura_fk1" Association="Self.Fatura_fk1">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="Material_fk0" Association="Self.Material_fk0">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="Opiniao_fk0" Association="Self.Opiniao_fk0">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Opiniao" EntitySet="Opiniao" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk0" Association="Self.Pedido_Aula_fk0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk1" Association="Self.Pedido_Aula_fk1">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk2" Association="Self.Pedido_Aula_fk2">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Professor_has_Horario_fk0" Association="Self.Professor_has_Horario_fk0">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Professor_has_Horario" EntitySet="Professor_has_Horario" />
+          </AssociationSet>
+          <AssociationSet Name="Professor_has_Horario_fk1" Association="Self.Professor_has_Horario_fk1">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Professor_has_Horario" EntitySet="Professor_has_Horario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="teachMeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Custo" Type="Int32" Nullable="false" />
+          <Property Name="Horario_ID" Type="Int32" Nullable="false" />
+          <Property Name="Professor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Opiniao_ID" Type="Int32" Nullable="false" />
+          <Property Name="Disciplina_ID" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Horario" Relationship="Self.Aula_fk0" FromRole="Aula" ToRole="Horario" />
+          <NavigationProperty Name="Professor" Relationship="Self.Aula_fk1" FromRole="Aula" ToRole="Professor" />
+          <NavigationProperty Name="Opiniao" Relationship="Self.Aula_fk2" FromRole="Aula" ToRole="Opiniao" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.Aula_fk3" FromRole="Aula" ToRole="Disciplina" />
+          <NavigationProperty Name="Cliente" Relationship="Self.Aula_fk4" FromRole="Aula" ToRole="Cliente" />
+          <NavigationProperty Name="Fatura" Relationship="Self.Fatura_fk1" FromRole="Aula" ToRole="Fatura" />
+          <NavigationProperty Name="Material" Relationship="Self.Material_fk0" FromRole="Aula" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Nascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Numero_Telemovel" Type="Int32" Nullable="false" />
+          <Property Name="NIF" Type="Int32" Nullable="false" />
+          <Property Name="Cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Distrito" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Freguesia" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Porta" Type="Int32" Nullable="false" />
+          <Property Name="Coordenadas_GPS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Aula_fk4" FromRole="Cliente" ToRole="Aula" />
+          <NavigationProperty Name="Fatura" Relationship="Self.Fatura_fk0" FromRole="Cliente" ToRole="Fatura" />
+          <NavigationProperty Name="Pedido_Aula" Relationship="Self.Pedido_Aula_fk0" FromRole="Cliente" ToRole="Pedido_Aula" />
+        </EntityType>
+        <EntityType Name="Disciplina">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ano" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Aula_fk3" FromRole="Disciplina" ToRole="Aula" />
+          <NavigationProperty Name="Pedido_Aula" Relationship="Self.Pedido_Aula_fk1" FromRole="Disciplina" ToRole="Pedido_Aula" />
+          <NavigationProperty Name="Professor" Relationship="Self.Disciplina_has_Professor" FromRole="Disciplina" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Fatura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente_ID" Type="Int32" Nullable="false" />
+          <Property Name="Aula_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Fatura_fk1" FromRole="Fatura" ToRole="Aula" />
+          <NavigationProperty Name="Cliente" Relationship="Self.Fatura_fk0" FromRole="Fatura" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Horario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dia_Hora" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Aula" Relationship="Self.Aula_fk0" FromRole="Horario" ToRole="Aula" />
+          <NavigationProperty Name="Pedido_Aula" Relationship="Self.Pedido_Aula_fk2" FromRole="Horario" ToRole="Pedido_Aula" />
+          <NavigationProperty Name="Professor" Relationship="Self.Professor_has_Horario" FromRole="Horario" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Aula_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Material_fk0" FromRole="Material" ToRole="Aula" />
+        </EntityType>
+        <EntityType Name="Opiniao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Avaliacao" Type="Int32" Nullable="false" />
+          <Property Name="Texto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Professor_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Aula_fk2" FromRole="Opiniao" ToRole="Aula" />
+          <NavigationProperty Name="Professor" Relationship="Self.Opiniao_fk0" FromRole="Opiniao" ToRole="Professor" />
+        </EntityType>
+        <EntityType Name="Pedido_Aula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente_ID" Type="Int32" Nullable="false" />
+          <Property Name="Disciplina_ID" Type="Int32" Nullable="false" />
+          <Property Name="Nome_Educando" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Resultados" Type="Int32" Nullable="false" />
+          <Property Name="Observacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Horario_ID" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.Pedido_Aula_fk0" FromRole="Pedido_Aula" ToRole="Cliente" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.Pedido_Aula_fk1" FromRole="Pedido_Aula" ToRole="Disciplina" />
+          <NavigationProperty Name="Horario" Relationship="Self.Pedido_Aula_fk2" FromRole="Pedido_Aula" ToRole="Horario" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Nascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Classificacao" Type="Int32" Nullable="false" />
+          <Property Name="Numero_Telemovel" Type="Int32" Nullable="false" />
+          <Property Name="Ativo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aula" Relationship="Self.Aula_fk1" FromRole="Professor" ToRole="Aula" />
+          <NavigationProperty Name="Opiniao" Relationship="Self.Opiniao_fk0" FromRole="Professor" ToRole="Opiniao" />
+          <NavigationProperty Name="Disciplina" Relationship="Self.Disciplina_has_Professor" FromRole="Professor" ToRole="Disciplina" />
+          <NavigationProperty Name="Horario" Relationship="Self.Professor_has_Horario" FromRole="Professor" ToRole="Horario" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="Aula_fk0">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Horario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk1">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk2">
+          <End Role="Opiniao" Type="Self.Opiniao" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opiniao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Opiniao_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk3">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Disciplina_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Aula_fk4">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Aula" Type="Self.Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Aula">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fatura_fk1">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="Aula_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Material_fk0">
+          <End Role="Aula" Type="Self.Aula" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="Aula_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fatura_fk0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk0">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Cliente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk1">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disciplina">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Disciplina_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedido_Aula_fk2">
+          <End Role="Horario" Type="Self.Horario" Multiplicity="0..1" />
+          <End Role="Pedido_Aula" Type="Self.Pedido_Aula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Horario">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pedido_Aula">
+              <PropertyRef Name="Horario_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Opiniao_fk0">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Opiniao" Type="Self.Opiniao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Opiniao">
+              <PropertyRef Name="Professor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Disciplina_has_Professor">
+          <End Role="Disciplina" Type="Self.Disciplina" Multiplicity="*" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+        </Association>
+        <Association Name="Professor_has_Horario">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="teachMeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aula" EntityType="Self.Aula" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Disciplina" EntityType="Self.Disciplina" />
+          <EntitySet Name="Fatura" EntityType="Self.Fatura" />
+          <EntitySet Name="Horario" EntityType="Self.Horario" />
+          <EntitySet Name="Material" EntityType="Self.Material" />
+          <EntitySet Name="Opiniao" EntityType="Self.Opiniao" />
+          <EntitySet Name="Pedido_Aula" EntityType="Self.Pedido_Aula" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="Aula_fk0" Association="Self.Aula_fk0">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk1" Association="Self.Aula_fk1">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk2" Association="Self.Aula_fk2">
+            <End Role="Opiniao" EntitySet="Opiniao" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk3" Association="Self.Aula_fk3">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Aula_fk4" Association="Self.Aula_fk4">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Aula" EntitySet="Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Fatura_fk1" Association="Self.Fatura_fk1">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="Material_fk0" Association="Self.Material_fk0">
+            <End Role="Aula" EntitySet="Aula" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="Fatura_fk0" Association="Self.Fatura_fk0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk0" Association="Self.Pedido_Aula_fk0">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk1" Association="Self.Pedido_Aula_fk1">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Pedido_Aula_fk2" Association="Self.Pedido_Aula_fk2">
+            <End Role="Horario" EntitySet="Horario" />
+            <End Role="Pedido_Aula" EntitySet="Pedido_Aula" />
+          </AssociationSet>
+          <AssociationSet Name="Opiniao_fk0" Association="Self.Opiniao_fk0">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Opiniao" EntitySet="Opiniao" />
+          </AssociationSet>
+          <AssociationSet Name="Disciplina_has_Professor" Association="Self.Disciplina_has_Professor">
+            <End Role="Disciplina" EntitySet="Disciplina" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="Professor_has_Horario" Association="Self.Professor_has_Horario">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Horario" EntitySet="Horario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="teachMeModelStoreContainer" CdmEntityContainer="teachMeEntities">
+          <EntitySetMapping Name="Aula">
+            <EntityTypeMapping TypeName="teachMeModel.Aula">
+              <MappingFragment StoreEntitySet="Aula">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Custo" ColumnName="Custo" />
+                <ScalarProperty Name="Horario_ID" ColumnName="Horario_ID" />
+                <ScalarProperty Name="Professor_ID" ColumnName="Professor_ID" />
+                <ScalarProperty Name="Opiniao_ID" ColumnName="Opiniao_ID" />
+                <ScalarProperty Name="Disciplina_ID" ColumnName="Disciplina_ID" />
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="teachMeModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Data_Nascimento" ColumnName="Data_Nascimento" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Numero_Telemovel" ColumnName="Numero_Telemovel" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="Freguesia" ColumnName="Freguesia" />
+                <ScalarProperty Name="Porta" ColumnName="Porta" />
+                <ScalarProperty Name="Coordenadas_GPS" ColumnName="Coordenadas_GPS" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disciplina">
+            <EntityTypeMapping TypeName="teachMeModel.Disciplina">
+              <MappingFragment StoreEntitySet="Disciplina">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fatura">
+            <EntityTypeMapping TypeName="teachMeModel.Fatura">
+              <MappingFragment StoreEntitySet="Fatura">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+                <ScalarProperty Name="Aula_ID" ColumnName="Aula_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Horario">
+            <EntityTypeMapping TypeName="teachMeModel.Horario">
+              <MappingFragment StoreEntitySet="Horario">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Dia_Hora" ColumnName="Dia_Hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="teachMeModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Aula_ID" ColumnName="Aula_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opiniao">
+            <EntityTypeMapping TypeName="teachMeModel.Opiniao">
+              <MappingFragment StoreEntitySet="Opiniao">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Avaliacao" ColumnName="Avaliacao" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Professor_ID" ColumnName="Professor_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido_Aula">
+            <EntityTypeMapping TypeName="teachMeModel.Pedido_Aula">
+              <MappingFragment StoreEntitySet="Pedido_Aula">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cliente_ID" ColumnName="Cliente_ID" />
+                <ScalarProperty Name="Disciplina_ID" ColumnName="Disciplina_ID" />
+                <ScalarProperty Name="Nome_Educando" ColumnName="Nome_Educando" />
+                <ScalarProperty Name="Resultados" ColumnName="Resultados" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="Horario_ID" ColumnName="Horario_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professor">
+            <EntityTypeMapping TypeName="teachMeModel.Professor">
+              <MappingFragment StoreEntitySet="Professor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Data_Nascimento" ColumnName="Data_Nascimento" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Classificacao" ColumnName="Classificacao" />
+                <ScalarProperty Name="Numero_Telemovel" ColumnName="Numero_Telemovel" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="teachMeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Disciplina_has_Professor" TypeName="teachMeModel.Disciplina_has_Professor" StoreEntitySet="Disciplina_has_Professor">
+            <EndProperty Name="Disciplina">
+              <ScalarProperty Name="ID" ColumnName="Disciplina_ID" />
+            </EndProperty>
+            <EndProperty Name="Professor">
+              <ScalarProperty Name="ID" ColumnName="Professor_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Professor_has_Horario" TypeName="teachMeModel.Professor_has_Horario" StoreEntitySet="Professor_has_Horario">
+            <EndProperty Name="Professor">
+              <ScalarProperty Name="ID" ColumnName="Professor_ID" />
+            </EndProperty>
+            <EndProperty Name="Horario">
+              <ScalarProperty Name="ID" ColumnName="Horario_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
